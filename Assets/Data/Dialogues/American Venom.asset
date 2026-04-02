@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59368fae97328c44380152f88c90ea0b, type: 3}
+  m_Name: American Venom
+  m_EditorClassIdentifier: 
+  dialogueName: American Venom
+  sentences:
+  - character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    expression: 0
+    onScreenPosition: 0
+    sentenceText: hvjv
+    backgroundImage: {fileID: -1108522845606753359, guid: 99fa9a63c23ebfb42a8ecf60f5da890b, type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 9b90267a7919fd24d96c7e7327b2e39e, type: 3}
+    isChoice: 0
+    choices: []
+  - character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    expression: 2
+    onScreenPosition: 1
+    sentenceText: Left/angry
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 0}
+    isChoice: 0
+    choices: []
+  - character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    expression: 1
+    onScreenPosition: 2
+    sentenceText: right/happy
+    backgroundImage: {fileID: 8450273889150653356, guid: d9fcdbe71e13ba34fb332ce8e2374e71, type: 3}
+    backgroundMusic: {fileID: 0}
+    isChoice: 0
+    choices: []
+  - character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    expression: 0
+    onScreenPosition: 2
+    sentenceText: Choice test
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 8300000, guid: d3061ece2d9e01941a7f8103262793d3, type: 3}
+    isChoice: 1
+    choices:
+    - choiceText: Option 1
+      resultingDialogue: {fileID: 11400000, guid: 792b8aa0f216b8f4aa72f74e464d4db9, type: 2}
+    - choiceText: Option 2
+      resultingDialogue: {fileID: 11400000, guid: d14678f372f2a324ea21b025cca40c4e, type: 2}
+    - choiceText: Option 3
+      resultingDialogue: {fileID: 0}
