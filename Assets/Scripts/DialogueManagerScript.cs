@@ -7,12 +7,13 @@ using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEditor.Media;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class DialogueManagerScript : MonoBehaviour
 {
     [Header("Options")]
     public float typingSpeed;
+    public float dialogueBoxOpacity;
 
     [Header("Flags")]
     public bool isTyping = false;
@@ -25,9 +26,10 @@ public class DialogueManagerScript : MonoBehaviour
     public TextMeshProUGUI textBox;
     public TextMeshProUGUI nameBox;
     public GameObject uiVisuals;
+    public SpriteRenderer textBoxVisual;
+    public SpriteRenderer nameBoxVisual;
     public ChoiceManagerScript choiceManager;
-
-    
+    public Slider slider;   
 
     [SerializeField]
     private List<Dialogue> allDialogues;
@@ -65,6 +67,7 @@ public class DialogueManagerScript : MonoBehaviour
                 }
             }
         }
+        SetTextBoxOpacity(slider.value);
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -145,5 +148,12 @@ public class DialogueManagerScript : MonoBehaviour
         }
         
         isTyping = false;
+    }
+
+
+    public void SetTextBoxOpacity(float value)
+    {
+        nameBoxVisual.color = new Color(nameBoxVisual.color.r, nameBoxVisual.color.g, nameBoxVisual.color.b, value);
+        textBoxVisual.color = new Color(textBoxVisual.color.r, textBoxVisual.color.g, textBoxVisual.color.b, value);
     }
 }
