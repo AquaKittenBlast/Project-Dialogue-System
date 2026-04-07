@@ -25,9 +25,9 @@ public class DialogueManagerScript : MonoBehaviour
     public CharacterManagerScript characterManager;
     public TextMeshProUGUI textBox;
     public TextMeshProUGUI nameBox;
-    // public GameObject uiVisuals;
-    // public SpriteRenderer textBoxVisual;
-    // public SpriteRenderer nameBoxVisual;
+    public GameObject uiVisuals;
+    public Image textBoxVisual;
+    public Image nameBoxVisual;
     public ChoiceManagerScript choiceManager;
     public Slider slider;   
 
@@ -44,14 +44,18 @@ public class DialogueManagerScript : MonoBehaviour
     void Awake()
     {
         if (instance == null){instance = this;}
-        // uiVisuals.SetActive(false);
+        uiVisuals.SetActive(false);
         //Testing
         StartDialogue(allDialogues[0]);
     }
 
+    void Update()
+    {
+        //SetTextBoxOpacity(slider.value);
+    }
+
     public void OnClickedMouseLeftButtonAsInTheThingOnTheLeftOfTheMouse()
     {
-        Debug.Log("new message");
         if (!isChoosing){
             if (isTyping == true){
                 StopCoroutine(typeTextCoroutine);
@@ -64,7 +68,6 @@ public class DialogueManagerScript : MonoBehaviour
                 nameBox.text = "";
                 NextSentence();
             }
-        // SetTextBoxOpacity(slider.value);
         }
     }
 
@@ -77,7 +80,7 @@ public class DialogueManagerScript : MonoBehaviour
         nameBox.text = "";
         currentDialogue = dialogue;
         dialogueSentenceIndex = 0;
-        // uiVisuals.SetActive(true);
+        uiVisuals.SetActive(true);
         ShowLine();
     }
 
@@ -96,6 +99,7 @@ public class DialogueManagerScript : MonoBehaviour
         }
         bool fadeIn = lastCharacter != dialogueSentence.character;
         characterManager.MoveImage(dialogueSentence.onScreenPosition, fadeIn);
+
         //Choice logic
         if (dialogueSentence.isChoice)
         {
@@ -108,6 +112,8 @@ public class DialogueManagerScript : MonoBehaviour
             }
             choiceManager.InstantiateChoices(dialogueSentence.choices);
         }
+
+
         //Background stuff
         if (dialogueSentence.backgroundImage != null) {bgManager.ChangeBackground(dialogueSentence.backgroundImage);}
         if (dialogueSentence.backgroundMusic != null) {audioManager.ChangeMusic(dialogueSentence.backgroundMusic);}
@@ -117,7 +123,7 @@ public class DialogueManagerScript : MonoBehaviour
     void EndDialogue()
     {
         currentDialogue = null;
-        // uiVisuals.SetActive(false);
+        uiVisuals.SetActive(false);
         characterManager.clearImage();
         textBox.text = "";
         nameBox.text = "";
@@ -153,7 +159,7 @@ public class DialogueManagerScript : MonoBehaviour
 
     public void SetTextBoxOpacity(float value)
     {
-        // nameBoxVisual.color = new Color(nameBoxVisual.color.r, nameBoxVisual.color.g, nameBoxVisual.color.b, value);
-        // textBoxVisual.color = new Color(textBoxVisual.color.r, textBoxVisual.color.g, textBoxVisual.color.b, value);
+        nameBoxVisual.color = new Color(nameBoxVisual.color.r, nameBoxVisual.color.g, nameBoxVisual.color.b, value);
+        textBoxVisual.color = new Color(textBoxVisual.color.r, textBoxVisual.color.g, textBoxVisual.color.b, value);
     }
 }

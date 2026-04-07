@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class ChoiceScript : MonoBehaviour
 {
-    public Choice choice;
+    public string choiceText;
 
     public void Start()
     {
+        Button button = GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(OnClick);
         TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = choice.choiceText;
+        text.text = choiceText;
     }
 
-    public void OnClick()
+    private void OnClick()
     {
-        Debug.Log("clanker");
         ChoiceManagerScript.instance.PolPot();
-        DialogueManagerScript.instance.StartDialogue(choice.resultingDialogue);
+        Debug.Log(choiceText);
     }
 }

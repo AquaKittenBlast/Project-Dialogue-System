@@ -46,9 +46,6 @@ MonoBehaviour:
     backgroundMusic: {fileID: 8300000, guid: d3061ece2d9e01941a7f8103262793d3, type: 3}
     isChoice: 1
     choices:
-    - choiceText: Option 1
-      resultingDialogue: {fileID: 11400000, guid: 792b8aa0f216b8f4aa72f74e464d4db9, type: 2}
-    - choiceText: Option 2
-      resultingDialogue: {fileID: 11400000, guid: d14678f372f2a324ea21b025cca40c4e, type: 2}
-    - choiceText: Option 3
-      resultingDialogue: {fileID: 0}
+    - YEs
+    - nough
+    - the third

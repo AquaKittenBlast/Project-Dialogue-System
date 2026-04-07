@@ -17,24 +17,24 @@ public class ChoiceManagerScript : MonoBehaviour
         if (instance == null) {instance = this;}
     }
 
-    public void InstantiateChoices(List<Choice> choices)
+    public void InstantiateChoices(List<string> choices)
     {
         //Actual Creation
         foreach (Transform child in transform){Destroy(child.gameObject);};
-        foreach (Choice x in choices)
+        foreach (string x in choices)
         {
             GameObject newChoiceBar = Instantiate(choiceBar, transform, false);
             ChoiceScript choiceScript = newChoiceBar.GetComponent<ChoiceScript>();
-            choiceScript.choice = x;
+            choiceScript.choiceText = x;
             choiceBars.Add(newChoiceBar);
         }
         //Positioning
-        float yAddendum = 207f;
+        float yAdd = 9f;
         foreach(GameObject choiceBar in choiceBars)
         {
             RectTransform rt = choiceBar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, yAddendum);
-            yAddendum -= 103f;
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, yAdd);
+            yAdd -= 103f;
         } 
     }
 
