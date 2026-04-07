@@ -70,6 +70,8 @@ public class DialogueManagerScript : MonoBehaviour
         SetTextBoxOpacity(slider.value);
     }
 
+    
+
     public void StartDialogue(Dialogue dialogue)
     {
         if (dialogue == null){Debug.Log("Provided dialogue was null"); return;}
