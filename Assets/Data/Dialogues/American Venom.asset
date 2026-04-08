@@ -16,9 +16,10 @@ MonoBehaviour:
   sentences:
   - sentenceId: 
     character: {fileID: 0}
-    expression: 0
+    expression: 
     onScreenPosition: 0
     sentenceText: 
+    lineJumpId: 
     backgroundImage: {fileID: 0}
     backgroundMusic: {fileID: 0}
     isChoice: 1

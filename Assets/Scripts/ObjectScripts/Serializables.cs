@@ -6,9 +6,10 @@ public class Sentence
 {
     public string sentenceId;
     public Character character;
-    public ExpressionType expression;
+    public string expression;
     public ScreenPosition onScreenPosition;
     public string sentenceText;
+    public string lineJumpId;
     public Sprite backgroundImage;
     public AudioClip backgroundMusic;
     public bool isChoice;
@@ -19,5 +20,5 @@ public class Sentence
 public class ExpressionSprite
 {
     public Sprite sprite;
-    public string spriteName;
+    public string expressionName;
 }

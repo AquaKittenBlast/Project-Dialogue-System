@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 using System.Runtime.InteropServices;
 [CustomPropertyDrawer(typeof(Sentence))]
 
@@ -15,6 +16,7 @@ public class SentenceDrawer : PropertyDrawer
         var expression = property.FindPropertyRelative("expression");
         var onScreenPosition = property.FindPropertyRelative("onScreenPosition");
         var sentenceText = property.FindPropertyRelative("sentenceText");
+        var lineJumpId = property.FindPropertyRelative("lineJumpId");
         var backgroundImage = property.FindPropertyRelative("backgroundImage");
         var backgroundMusic = property.FindPropertyRelative("backgroundMusic");
         var isChoice = property.FindPropertyRelative("isChoice");
@@ -22,9 +24,13 @@ public class SentenceDrawer : PropertyDrawer
 
         DrawField(ref yPos, position, sentenceId);
         DrawField(ref yPos, position, character);
-        DrawField(ref yPos, position, expression);
+        if (character != null)
+        {
+            DrawExpressionDropdown(ref yPos, position, character, expression);
+        }
         DrawField(ref yPos, position, onScreenPosition);
         DrawField(ref yPos, position, sentenceText);
+        DrawField(ref yPos, position, lineJumpId);
         DrawField(ref yPos, position, backgroundImage);
         DrawField(ref yPos, position, backgroundMusic);
         DrawField(ref yPos, position, isChoice);
@@ -62,6 +68,28 @@ public class SentenceDrawer : PropertyDrawer
         yPos += fieldHeight + 4; 
     }
 
+    private void DrawExpressionDropdown(ref float yPos, Rect position, SerializedProperty characterProp, SerializedProperty expressionProp)
+    {
+        Character characterObj = characterProp.objectReferenceValue as Character;
+
+        string[] options = characterObj != null 
+            ? characterObj.sprites.Select(s => s.expressionName).ToArray() 
+            : new string[0];
+
+        int currentIndex = Mathf.Max(0, System.Array.IndexOf(options, expressionProp.stringValue));
+
+        int selectedIndex = EditorGUI.Popup(
+            new Rect(position.x, yPos, position.width, EditorGUIUtility.singleLineHeight),
+            "Expression",
+            currentIndex,
+            options
+        );
+
+        if (options.Length > 0){expressionProp.stringValue = options[selectedIndex];}
+
+        yPos += EditorGUIUtility.singleLineHeight + 4;
+    }
+
     private void DrawChoicesField(ref float yPos, Rect position, SerializedProperty prop)
     {
         float lineHeight = EditorGUIUtility.singleLineHeight;
@@ -80,15 +108,16 @@ public class SentenceDrawer : PropertyDrawer
 
         totalHeight += (lineHeight + spacing) * 4; 
         totalHeight += (lineHeight * 4.5f) + spacing;
-        totalHeight += (lineHeight + spacing) * 3;
+        totalHeight += (lineHeight + spacing) * 4;
 
         var isChoice = property.FindPropertyRelative("isChoice");
-        if (isChoice.boolValue)
-        {
+        if (isChoice.boolValue){
             var choices = property.FindPropertyRelative("choices");
-            float choicesAmount = choices.arraySize;
-            totalHeight += lineHeight + spacing * 12;
-            totalHeight += choicesAmount * 1;
+            totalHeight += lineHeight * 4;
+            for (int i = 1; i < choices.arraySize; i++)
+            {
+                totalHeight += EditorGUIUtility.singleLineHeight + spacing;
+            }
         }
 
         return totalHeight;
