@@ -93,10 +93,10 @@ public class DialogueManagerScript : MonoBehaviour
         nameBox.text = dialogueSentence.character.characterName;
         typeTextCoroutine = StartCoroutine(TypeText(dialogueSentence));
         //Shows the right expression and position
-        foreach (ExpressionSprite sprite in dialogueSentence.character.sprites)
-        {
-            if (sprite.expression == dialogueSentence.expression){characterManager.ChangeImage(sprite.sprite); break;}
-        }
+        // foreach (ExpressionSprite sprite in dialogueSentence.character.sprites)
+        // {
+        //     if (sprite.expression == dialogueSentence.expression){characterManager.ChangeImage(sprite.sprite); break;}
+        // }
         bool fadeIn = lastCharacter != dialogueSentence.character;
         characterManager.MoveImage(dialogueSentence.onScreenPosition, fadeIn);
 

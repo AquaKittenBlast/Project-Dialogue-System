@@ -7,7 +7,7 @@ public class Sentence
     public Character character;
     public ExpressionType expression;
     public ScreenPosition onScreenPosition;
-    [TextArea(5, 10)]
+    // [TextArea(5, 10)]
     public string sentenceText;
     public Sprite backgroundImage;
     public AudioClip backgroundMusic;
@@ -19,5 +19,5 @@ public class Sentence
 public class ExpressionSprite
 {
     public Sprite sprite;
-    public ExpressionType expression;
+    public string spriteName;
 }
