@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueName: American Venom
   sentences:
-  - character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+  - sentenceId: 
+    character: {fileID: 0}
     expression: 0
     onScreenPosition: 0
     sentenceText: 
-    backgroundImage: {fileID: -1108522845606753359, guid: 99fa9a63c23ebfb42a8ecf60f5da890b, type: 3}
-    backgroundMusic: {fileID: 8300000, guid: 9b90267a7919fd24d96c7e7327b2e39e, type: 3}
-    isChoice: 0
-    choices:
-    - 
-    - 
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 0}
+    isChoice: 1
+    choices: []

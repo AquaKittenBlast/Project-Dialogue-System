@@ -4,10 +4,10 @@ using UnityEngine;
 [System.Serializable]
 public class Sentence
 {
+    public string sentenceId;
     public Character character;
     public ExpressionType expression;
     public ScreenPosition onScreenPosition;
-    // [TextArea(5, 10)]
     public string sentenceText;
     public Sprite backgroundImage;
     public AudioClip backgroundMusic;
