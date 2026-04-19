@@ -57,7 +57,6 @@ public class SentenceDrawer : PropertyDrawer
 
         if (prop.name == "sentenceText")
         {
-            // Multi-line text area
             prop.stringValue = EditorGUI.TextArea(rect, prop.stringValue);
         }
         else
@@ -100,6 +99,8 @@ public class SentenceDrawer : PropertyDrawer
         yPos += lineHeight + 4; 
     }
 
+    private void DrawLineDropdown(){}
+
     //Ypos tells it where it goes, but the lineHeight variable gets used to tell the code how much space it should reserve for it
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label){
         float lineHeight = EditorGUIUtility.singleLineHeight;
@@ -114,12 +115,12 @@ public class SentenceDrawer : PropertyDrawer
         if (isChoice.boolValue){
             var choices = property.FindPropertyRelative("choices");
             totalHeight += lineHeight * 4;
-            for (int i = 1; i < choices.arraySize; i++)
+            float specificSpacing = 36f;
+            for (int i = 0; i < choices.arraySize; i++)
             {
-                totalHeight += EditorGUIUtility.singleLineHeight + spacing;
+                totalHeight += EditorGUIUtility.singleLineHeight + specificSpacing;
             }
         }
-
         return totalHeight;
     }  
 }

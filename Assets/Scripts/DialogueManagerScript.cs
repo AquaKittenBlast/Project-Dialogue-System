@@ -29,7 +29,9 @@ public class DialogueManagerScript : MonoBehaviour
     public Image textBoxVisual;
     public Image nameBoxVisual;
     public ChoiceManagerScript choiceManager;
-    public Slider slider;   
+    public GameObject settings;
+    public Slider opacitySlider;   
+    public Slider textSpeedSlider;
 
     [SerializeField]
     private List<Dialogue> allDialogues;
@@ -45,13 +47,16 @@ public class DialogueManagerScript : MonoBehaviour
     {
         if (instance == null){instance = this;}
         uiVisuals.SetActive(false);
+        SetTextBoxOpacity(opacitySlider.value);
+        SetTextSpeedVariable(textSpeedSlider.value);
+        settings.SetActive(false);
         //Testing
         StartDialogue(allDialogues[0]);
     }
 
     void Update()
     {
-        //SetTextBoxOpacity(slider.value);
+        
     }
 
     public void OnClickedMouseLeftButtonAsInTheThingOnTheLeftOfTheMouse()
@@ -133,12 +138,31 @@ public class DialogueManagerScript : MonoBehaviour
     void NextSentence()
     {
         if (currentDialogue == null){Debug.Log("No dialogue selected/provided."); return;}
-        dialogueSentenceIndex++;
+
+        if (dialogueSentence.lineJumpId != ""){
+            dialogueSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == dialogueSentence.lineJumpId);
+        }
+        else{dialogueSentenceIndex++;}
+        
         if (dialogueSentenceIndex >= currentDialogue.sentences.Count)
         {
             EndDialogue();
             return;
         }
+        ShowLine();
+    }
+
+    public void SkipToLine(string idToJumpTo)
+    {
+        textBox.text = "";
+        nameBox.text = "";
+        dialogueSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == idToJumpTo);
+        if (dialogueSentenceIndex >= currentDialogue.sentences.Count)
+        {
+            EndDialogue();
+            return;
+        }
+        isChoosing = false;
         ShowLine();
     }
 
@@ -162,4 +186,15 @@ public class DialogueManagerScript : MonoBehaviour
         nameBoxVisual.color = new Color(nameBoxVisual.color.r, nameBoxVisual.color.g, nameBoxVisual.color.b, value);
         textBoxVisual.color = new Color(textBoxVisual.color.r, textBoxVisual.color.g, textBoxVisual.color.b, value);
     }
+
+    public void SetTextSpeedVariable(float value)
+    {
+        typingSpeed = value;
+    }
+
+    public void FlipSettingsActive()
+    {
+        settings.SetActive(!settings.activeSelf);
+    }
+
 }

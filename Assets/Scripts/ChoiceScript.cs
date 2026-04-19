@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class ChoiceScript : MonoBehaviour
 {
     public string choiceText;
+    public string lineJumpId;
 
     public void Start()
     {
@@ -19,6 +21,7 @@ public class ChoiceScript : MonoBehaviour
     private void OnClick()
     {
         ChoiceManagerScript.instance.PolPot();
-        Debug.Log(choiceText);
+        Debug.Log("Will jump to " + lineJumpId);
+        DialogueManagerScript.instance.SkipToLine(lineJumpId);
     }
 }

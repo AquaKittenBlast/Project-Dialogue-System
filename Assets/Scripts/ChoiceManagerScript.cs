@@ -17,15 +17,16 @@ public class ChoiceManagerScript : MonoBehaviour
         if (instance == null) {instance = this;}
     }
 
-    public void InstantiateChoices(List<string> choices)
+    public void InstantiateChoices(List<Choice> choices)
     {
         //Actual Creation
         foreach (Transform child in transform){Destroy(child.gameObject);};
-        foreach (string x in choices)
+        foreach (Choice x in choices)
         {
             GameObject newChoiceBar = Instantiate(choiceBar, transform, false);
             ChoiceScript choiceScript = newChoiceBar.GetComponent<ChoiceScript>();
-            choiceScript.choiceText = x;
+            choiceScript.choiceText = x.choiceText;
+            choiceScript.lineJumpId = x.lineJumpId;
             choiceBars.Add(newChoiceBar);
         }
         //Positioning

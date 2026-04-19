@@ -13,7 +13,7 @@ public class Sentence
     public Sprite backgroundImage;
     public AudioClip backgroundMusic;
     public bool isChoice;
-    public List<string> choices;
+    public List<Choice> choices;
 }
 
 [System.Serializable]
@@ -21,4 +21,11 @@ public class ExpressionSprite
 {
     public Sprite sprite;
     public string expressionName;
+}
+
+[System.Serializable]
+public class Choice
+{
+    public string choiceText;
+    public string lineJumpId;
 }
