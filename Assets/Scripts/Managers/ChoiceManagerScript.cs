@@ -38,9 +38,7 @@ public class ChoiceManagerScript : MonoBehaviour
             yAdd -= 103f;
         } 
     }
-
-
-
+    
     public void PolPot()
     {
         foreach (Transform child in transform){Destroy(child.gameObject);};

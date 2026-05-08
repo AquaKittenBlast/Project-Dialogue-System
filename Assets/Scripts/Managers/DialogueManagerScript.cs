@@ -26,12 +26,7 @@ public class DialogueManagerScript : MonoBehaviour
     public TextMeshProUGUI textBox;
     public TextMeshProUGUI nameBox;
     public GameObject uiVisuals;
-    public Image textBoxVisual;
-    public Image nameBoxVisual;
     public ChoiceManagerScript choiceManager;
-    public GameObject settings;
-    public Slider opacitySlider;   
-    public Slider textSpeedSlider;
 
     [SerializeField]
     private List<Dialogue> allDialogues;
@@ -47,9 +42,6 @@ public class DialogueManagerScript : MonoBehaviour
     {
         if (instance == null){instance = this;}
         uiVisuals.SetActive(false);
-        SetTextBoxOpacity(opacitySlider.value);
-        SetTextSpeedVariable(textSpeedSlider.value);
-        settings.SetActive(false);
         //Testing
         StartDialogue(allDialogues[0]);
     }
@@ -104,6 +96,7 @@ public class DialogueManagerScript : MonoBehaviour
         }
         bool fadeIn = lastCharacter != dialogueSentence.character;
         characterManager.MoveImage(dialogueSentence.onScreenPosition, fadeIn);
+        HistoryManagerScript.instance.CreateNewDialogueEntry(dialogueSentence.character.characterName, dialogueSentence.sentenceText);
 
         //Choice logic
         if (dialogueSentence.isChoice)
@@ -180,21 +173,5 @@ public class DialogueManagerScript : MonoBehaviour
         isTyping = false;
     }
 
-
-    public void SetTextBoxOpacity(float value)
-    {
-        nameBoxVisual.color = new Color(nameBoxVisual.color.r, nameBoxVisual.color.g, nameBoxVisual.color.b, value);
-        textBoxVisual.color = new Color(textBoxVisual.color.r, textBoxVisual.color.g, textBoxVisual.color.b, value);
-    }
-
-    public void SetTextSpeedVariable(float value)
-    {
-        typingSpeed = value;
-    }
-
-    public void FlipSettingsActive()
-    {
-        settings.SetActive(!settings.activeSelf);
-    }
 
 }
