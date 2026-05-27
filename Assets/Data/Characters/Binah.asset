@@ -19,4 +19,6 @@ MonoBehaviour:
   - sprite: {fileID: 7985626363670038235, guid: f205f2c2db0993c4db61627dc62f91e0, type: 3}
     expressionName: yipee
   - sprite: {fileID: 621222158458474870, guid: 6b687769642c4f2428bc18a96e07ad32, type: 3}
-    expressionName: raahhh
+    expressionName: anger
+  - sprite: {fileID: 621222158458474870, guid: 6b687769642c4f2428bc18a96e07ad32, type: 3}
+    expressionName: new cool experession

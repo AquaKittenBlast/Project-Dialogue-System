@@ -16,56 +16,47 @@ MonoBehaviour:
   sentences:
   - sentenceId: 
     character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
-    expression: neutral
+    speakerName: 
+    expression: anger
     onScreenPosition: 0
-    sentenceText: hellohi
+    sentenceText: Character name
     lineJumpId: 
     backgroundImage: {fileID: 0}
     backgroundMusic: {fileID: 0}
-    isChoice: 1
+    soundEffect: {fileID: 0}
+    endsDialogue: 0
+    isChoice: 0
+    choices: []
+  - sentenceId: 
+    character: {fileID: 0}
+    speakerName: 
+    expression: neutral
+    onScreenPosition: 0
+    sentenceText: Character name no char selected
+    lineJumpId: 
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 0}
+    soundEffect: {fileID: 0}
+    endsDialogue: 0
+    isChoice: 0
     choices:
     - choiceText: Seasalt
       lineJumpId: 1
     - choiceText: where is omni man
       lineJumpId: 2
-  - sentenceId: 1
-    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+  - sentenceId: 
+    character: {fileID: 0}
+    speakerName: override
     expression: neutral
     onScreenPosition: 0
-    sentenceText: 'i need you seasalt
+    sentenceText: 'Overridden name
 
 '
-    lineJumpId: 3
-    backgroundImage: {fileID: 0}
-    backgroundMusic: {fileID: 0}
-    isChoice: 0
-    choices:
-    - choiceText: Seasalt
-      lineJumpId: 1
-    - choiceText: where is omni man
-      lineJumpId: 2
-  - sentenceId: 2
-    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
-    expression: neutral
-    onScreenPosition: 0
-    sentenceText: whereishe
-    lineJumpId: 3
-    backgroundImage: {fileID: 0}
-    backgroundMusic: {fileID: 0}
-    isChoice: 0
-    choices:
-    - choiceText: Seasalt
-      lineJumpId: 1
-    - choiceText: where is omni man
-      lineJumpId: 2
-  - sentenceId: 3
-    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
-    expression: neutral
-    onScreenPosition: 0
-    sentenceText: da end
     lineJumpId: 
     backgroundImage: {fileID: 0}
-    backgroundMusic: {fileID: 0}
+    backgroundMusic: {fileID: 8300000, guid: 9b90267a7919fd24d96c7e7327b2e39e, type: 3}
+    soundEffect: {fileID: 0}
+    endsDialogue: 0
     isChoice: 0
     choices:
     - choiceText: Seasalt

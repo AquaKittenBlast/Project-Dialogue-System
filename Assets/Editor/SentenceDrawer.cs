@@ -13,17 +13,21 @@ public class SentenceDrawer : PropertyDrawer
 
         var sentenceId = property.FindPropertyRelative("sentenceId");
         var character = property.FindPropertyRelative("character");
+        var speakerName = property.FindPropertyRelative("speakerName");
         var expression = property.FindPropertyRelative("expression");
         var onScreenPosition = property.FindPropertyRelative("onScreenPosition");
         var sentenceText = property.FindPropertyRelative("sentenceText");
         var lineJumpId = property.FindPropertyRelative("lineJumpId");
         var backgroundImage = property.FindPropertyRelative("backgroundImage");
         var backgroundMusic = property.FindPropertyRelative("backgroundMusic");
+        var soundEffect = property.FindPropertyRelative("soundEffect");
         var isChoice = property.FindPropertyRelative("isChoice");
+        var endsDialogue = property.FindPropertyRelative("endsDialogue");
         var choices = property.FindPropertyRelative("choices");
 
         DrawField(ref yPos, position, sentenceId);
         DrawField(ref yPos, position, character);
+        DrawField(ref yPos, position, speakerName);
         if (character != null)
         {
             DrawExpressionDropdown(ref yPos, position, character, expression);
@@ -33,6 +37,8 @@ public class SentenceDrawer : PropertyDrawer
         DrawField(ref yPos, position, lineJumpId);
         DrawField(ref yPos, position, backgroundImage);
         DrawField(ref yPos, position, backgroundMusic);
+        DrawField(ref yPos, position, soundEffect);
+        DrawField(ref yPos, position, endsDialogue);
         DrawField(ref yPos, position, isChoice);
         if (isChoice.boolValue)
         {
@@ -99,17 +105,15 @@ public class SentenceDrawer : PropertyDrawer
         yPos += lineHeight + 4; 
     }
 
-    private void DrawLineDropdown(){}
-
     //Ypos tells it where it goes, but the lineHeight variable gets used to tell the code how much space it should reserve for it
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label){
         float lineHeight = EditorGUIUtility.singleLineHeight;
         float spacing = 4f;
         float totalHeight = 0f;
 
-        totalHeight += (lineHeight + spacing) * 4; 
+        totalHeight += (lineHeight + spacing) * 5; 
         totalHeight += (lineHeight * 4.5f) + spacing;
-        totalHeight += (lineHeight + spacing) * 4;
+        totalHeight += (lineHeight + spacing) * 6;
 
         var isChoice = property.FindPropertyRelative("isChoice");
         if (isChoice.boolValue){

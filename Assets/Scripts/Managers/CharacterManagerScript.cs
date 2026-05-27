@@ -96,7 +96,4 @@ public class CharacterManagerScript : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
-
-    
-
 }

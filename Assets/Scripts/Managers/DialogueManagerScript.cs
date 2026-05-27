@@ -87,17 +87,30 @@ public class DialogueManagerScript : MonoBehaviour
         //Gets the right sentence from the dialogue
         dialogueSentence = currentDialogue.sentences[dialogueSentenceIndex];
         //Shows the text
-        nameBox.text = dialogueSentence.character.characterName;
+        if (dialogueSentence.speakerName != ""){nameBox.text = dialogueSentence.speakerName;}
+        else if (dialogueSentence.character){nameBox.text = dialogueSentence.character.name;}
+        else {nameBox.text = lastCharacter.name;}
         typeTextCoroutine = StartCoroutine(TypeText(dialogueSentence));
         //Shows the right expression and position
-        foreach (ExpressionSprite sprite in dialogueSentence.character.sprites)
+        if (dialogueSentence.character)
         {
-            if (sprite.expressionName == dialogueSentence.expression){characterManager.ChangeImage(sprite.sprite); break;}
+            foreach (ExpressionSprite sprite in dialogueSentence.character.sprites)
+            {
+                if (sprite.expressionName == dialogueSentence.expression){characterManager.ChangeImage(sprite.sprite); break;}
+            }
         }
-        bool fadeIn = lastCharacter != dialogueSentence.character;
+        //Shows the correct position
+        bool fadeIn = false;
+        if (dialogueSentence.character)
+        {
+            fadeIn = lastCharacter != dialogueSentence.character;
+        }
         characterManager.MoveImage(dialogueSentence.onScreenPosition, fadeIn);
-        HistoryManagerScript.instance.CreateNewDialogueEntry(dialogueSentence.character.characterName, dialogueSentence.sentenceText);
-
+        string historySpeakerName;
+        if (dialogueSentence.speakerName != ""){historySpeakerName = dialogueSentence.speakerName;}
+        else if (dialogueSentence.character){historySpeakerName = dialogueSentence.character.characterName;}
+        else {historySpeakerName = lastCharacter.name;}
+        HistoryManagerScript.instance.CreateNewDialogueEntry(historySpeakerName, dialogueSentence.sentenceText);
         //Choice logic
         if (dialogueSentence.isChoice)
         {
@@ -110,12 +123,12 @@ public class DialogueManagerScript : MonoBehaviour
             }
             choiceManager.InstantiateChoices(dialogueSentence.choices);
         }
-
-
-        //Background stuff
-        if (dialogueSentence.backgroundImage != null) {bgManager.ChangeBackground(dialogueSentence.backgroundImage);}
-        if (dialogueSentence.backgroundMusic != null) {audioManager.ChangeMusic(dialogueSentence.backgroundMusic);}
-        lastCharacter = dialogueSentence.character;
+        
+        //Background & audio
+        if (dialogueSentence.backgroundImage) {bgManager.ChangeBackground(dialogueSentence.backgroundImage);}
+        if (dialogueSentence.backgroundMusic) {audioManager.ChangeMusic(dialogueSentence.backgroundMusic);}
+        if (dialogueSentence.soundEffect){AudioManagerScript.instance.PlaySFX(dialogueSentence.soundEffect);}
+        if (dialogueSentence.character){lastCharacter = dialogueSentence.character;}
     }
 
     void EndDialogue()
@@ -132,7 +145,8 @@ public class DialogueManagerScript : MonoBehaviour
     {
         if (currentDialogue == null){Debug.Log("No dialogue selected/provided."); return;}
 
-        if (dialogueSentence.lineJumpId != ""){
+        if (dialogueSentence.endsDialogue){EndDialogue(); return;}
+        else if (dialogueSentence.lineJumpId != ""){
             dialogueSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == dialogueSentence.lineJumpId);
         }
         else{dialogueSentenceIndex++;}
