@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59368fae97328c44380152f88c90ea0b, type: 3}
+  m_Name: New Dialogue
+  m_EditorClassIdentifier: 
+  dialogueName: jhgjh
+  sentences:
+  - sentenceId: 
+    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    speakerName: 
+    expression: neutral
+    onScreenPosition: 0
+    sentenceText: one
+    lineJumpId: 45
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 0}
+    soundEffect: {fileID: 0}
+    endsDialogue: 0
+    isChoice: 0
+    choices: []
+  - sentenceId: 
+    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    speakerName: 
+    expression: neutral
+    onScreenPosition: 0
+    sentenceText: hgfdhgfhnfdjkhblgdfhbgfh
+    lineJumpId: 
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 0}
+    soundEffect: {fileID: 0}
+    endsDialogue: 0
+    isChoice: 0
+    choices: []
+  - sentenceId: 45
+    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    speakerName: 
+    expression: anger
+    onScreenPosition: 1
+    sentenceText: three
+    lineJumpId: 
+    backgroundImage: {fileID: 0}
+    backgroundMusic: {fileID: 0}
+    soundEffect: {fileID: 0}
+    endsDialogue: 1
+    isChoice: 0
+    choices: []

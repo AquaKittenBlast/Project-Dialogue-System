@@ -15,51 +15,16 @@ MonoBehaviour:
   dialogueName: American Venom
   sentences:
   - sentenceId: 
-    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
+    character: {fileID: 0}
     speakerName: 
-    expression: anger
+    expression: 
     onScreenPosition: 0
-    sentenceText: Character name
+    sentenceText: 
     lineJumpId: 
+    shouldShowSentence: 
     backgroundImage: {fileID: 0}
     backgroundMusic: {fileID: 0}
     soundEffect: {fileID: 0}
     endsDialogue: 0
     isChoice: 0
     choices: []
-  - sentenceId: 
-    character: {fileID: 0}
-    speakerName: 
-    expression: neutral
-    onScreenPosition: 0
-    sentenceText: Character name no char selected
-    lineJumpId: 
-    backgroundImage: {fileID: 0}
-    backgroundMusic: {fileID: 0}
-    soundEffect: {fileID: 0}
-    endsDialogue: 0
-    isChoice: 0
-    choices:
-    - choiceText: Seasalt
-      lineJumpId: 1
-    - choiceText: where is omni man
-      lineJumpId: 2
-  - sentenceId: 
-    character: {fileID: 0}
-    speakerName: override
-    expression: neutral
-    onScreenPosition: 0
-    sentenceText: 'Overridden name
-
-'
-    lineJumpId: 
-    backgroundImage: {fileID: 0}
-    backgroundMusic: {fileID: 8300000, guid: 9b90267a7919fd24d96c7e7327b2e39e, type: 3}
-    soundEffect: {fileID: 0}
-    endsDialogue: 0
-    isChoice: 0
-    choices:
-    - choiceText: Seasalt
-      lineJumpId: 1
-    - choiceText: where is omni man
-      lineJumpId: 2

@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 [CustomPropertyDrawer(typeof(Sentence))]
 
 public class SentenceDrawer : PropertyDrawer
 {
+    #region Draws the entire sentence
+
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
@@ -18,6 +21,9 @@ public class SentenceDrawer : PropertyDrawer
         var onScreenPosition = property.FindPropertyRelative("onScreenPosition");
         var sentenceText = property.FindPropertyRelative("sentenceText");
         var lineJumpId = property.FindPropertyRelative("lineJumpId");
+        var shouldShowSentence = property.FindPropertyRelative("shouldShowSentence");
+        //flaglinejump here
+        //flaglineset here
         var backgroundImage = property.FindPropertyRelative("backgroundImage");
         var backgroundMusic = property.FindPropertyRelative("backgroundMusic");
         var soundEffect = property.FindPropertyRelative("soundEffect");
@@ -35,6 +41,9 @@ public class SentenceDrawer : PropertyDrawer
         DrawField(ref yPos, position, onScreenPosition);
         DrawField(ref yPos, position, sentenceText);
         DrawField(ref yPos, position, lineJumpId);
+        DrawFlagField(ref yPos, position, shouldShowSentence);
+        //flaglinejump here
+        //flaglineset here
         DrawField(ref yPos, position, backgroundImage);
         DrawField(ref yPos, position, backgroundMusic);
         DrawField(ref yPos, position, soundEffect);
@@ -47,6 +56,9 @@ public class SentenceDrawer : PropertyDrawer
 
         EditorGUI.EndProperty();
     }
+    #endregion
+
+    #region Everything else
 
 
     private void DrawField(ref float yPos, Rect position, SerializedProperty prop)
@@ -95,6 +107,41 @@ public class SentenceDrawer : PropertyDrawer
         yPos += EditorGUIUtility.singleLineHeight + 4;
     }
 
+    private void DrawFlagField(ref float yPos, Rect position, SerializedProperty shouldShowSentence)
+    {
+        //sets the necessary variables for this script
+        string currentValue = string.IsNullOrEmpty(shouldShowSentence.stringValue) ? "None" : shouldShowSentence.stringValue;
+        Rect wholeRect = new Rect(position.x, yPos, position.width, EditorGUIUtility.singleLineHeight);
+        Rect fieldRect = EditorGUI.PrefixLabel(wholeRect, new GUIContent("Should Show Sentence If"));
+
+        //if you use a button in a script like this it returns trur if it has been clicked, and executes the code insidre
+        if (EditorGUI.DropdownButton(fieldRect, new GUIContent(currentValue),FocusType.Passive)){ OpenFlagSearchPopup(shouldShowSentence); }
+        yPos += EditorGUIUtility.singleLineHeight + 4;
+    }
+
+    private void OpenFlagSearchPopup(SerializedProperty target)
+    {
+        FlagDatabase db = AssetDatabase.LoadAssetAtPath<FlagDatabase>("Assets/Data/Databases/FlagDatabase.asset");
+        if (db == null){return;}
+        List<Flag> allFlags = db.allFlags;
+
+        var menu = new GenericMenu();
+
+        foreach (Flag f in allFlags)
+        {
+            menu.AddItem(
+            new GUIContent($"{f.flagName} ({f.value})"),
+            false,
+            () =>
+            {
+                target.stringValue = f.flagName;
+                target.serializedObject.ApplyModifiedProperties();
+            });
+        }
+
+        menu.ShowAsContext();
+    }
+
     private void DrawChoicesField(ref float yPos, Rect position, SerializedProperty prop)
     {
         float lineHeight = EditorGUIUtility.singleLineHeight;
@@ -113,7 +160,7 @@ public class SentenceDrawer : PropertyDrawer
 
         totalHeight += (lineHeight + spacing) * 5; 
         totalHeight += (lineHeight * 4.5f) + spacing;
-        totalHeight += (lineHeight + spacing) * 6;
+        totalHeight += (lineHeight + spacing) * 7;
 
         var isChoice = property.FindPropertyRelative("isChoice");
         if (isChoice.boolValue){
@@ -127,4 +174,5 @@ public class SentenceDrawer : PropertyDrawer
         }
         return totalHeight;
     }  
+    #endregion
 }

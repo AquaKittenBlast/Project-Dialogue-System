@@ -2370,7 +2370,7 @@ MonoBehaviour:
   uiVisuals: {fileID: 169163502}
   choiceManager: {fileID: 826173473}
   allDialogues:
-  - {fileID: 11400000, guid: 1b07bfd4f53456841b93064e8cb768bf, type: 2}
+  - {fileID: 11400000, guid: 882bf16042c7b354ba74e8813f8101eb, type: 2}
 --- !u!1 &1072497793
 GameObject:
   m_ObjectHideFlags: 0
