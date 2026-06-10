@@ -13,7 +13,7 @@ public class Sentence
     public string sentenceText;
     //Advanced Information
     public string lineJumpId;
-    public string shouldShowSentence;
+    public string shouldShowSentence = "None";
     //flaglinejumphere
     //flaglineset here
     public Sprite backgroundImage;

@@ -27,6 +27,7 @@ public class DialogueManagerScript : MonoBehaviour
     public TextMeshProUGUI nameBox;
     public GameObject uiVisuals;
     public ChoiceManagerScript choiceManager;
+    public FlagDatabase allFlags;
 
     [SerializeField]
     private List<Dialogue> allDialogues;
@@ -46,11 +47,6 @@ public class DialogueManagerScript : MonoBehaviour
         StartDialogue(allDialogues[0]);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void OnClickedMouseLeftButtonAsInTheThingOnTheLeftOfTheMouse()
     {
         if (!isChoosing){
@@ -67,8 +63,6 @@ public class DialogueManagerScript : MonoBehaviour
             }
         }
     }
-
-    
 
     public void StartDialogue(Dialogue dialogue)
     {
@@ -150,12 +144,25 @@ public class DialogueManagerScript : MonoBehaviour
             dialogueSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == dialogueSentence.lineJumpId);
         }
         else{dialogueSentenceIndex++;}
-        
-        if (dialogueSentenceIndex >= currentDialogue.sentences.Count)
+
+        bool invalidSentence = true;
+
+        while (invalidSentence)
         {
-            EndDialogue();
-            return;
+            if (dialogueSentenceIndex >= currentDialogue.sentences.Count)
+            {
+                EndDialogue();
+                return;
+            }  
+
+            Sentence currentSentence = currentDialogue.sentences[dialogueSentenceIndex];
+            if (FlagNameToBool(currentSentence.shouldShowSentence) || currentSentence.shouldShowSentence == "None")
+            {
+                invalidSentence = false;
+            }
+            else{dialogueSentenceIndex++;}    
         }
+
         ShowLine();
     }
 
@@ -187,5 +194,21 @@ public class DialogueManagerScript : MonoBehaviour
         isTyping = false;
     }
 
+    public bool FlagNameToBool(string name)
+    {
+        foreach (Flag f in allFlags.allFlags)
+        {
+            if (f.flagName == name)
+            {
+                switch (f.value)
+                {
+                    case 0: return false;
+                    case 1: return true;
+                    default: Debug.Log("You used a numbered variable instead of a number, dumbass"); return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }

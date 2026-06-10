@@ -2369,6 +2369,7 @@ MonoBehaviour:
   nameBox: {fileID: 1973482924}
   uiVisuals: {fileID: 169163502}
   choiceManager: {fileID: 826173473}
+  allFlags: {fileID: 11400000, guid: bc6c639097013d94a9981b3513b1bb2f, type: 2}
   allDialogues:
   - {fileID: 11400000, guid: 882bf16042c7b354ba74e8813f8101eb, type: 2}
 --- !u!1 &1072497793

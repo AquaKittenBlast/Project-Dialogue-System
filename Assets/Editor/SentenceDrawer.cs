@@ -3,6 +3,8 @@ using UnityEditor;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using log4net.Appender;
 [CustomPropertyDrawer(typeof(Sentence))]
 
 public class SentenceDrawer : PropertyDrawer
@@ -119,27 +121,18 @@ public class SentenceDrawer : PropertyDrawer
         yPos += EditorGUIUtility.singleLineHeight + 4;
     }
 
+
     private void OpenFlagSearchPopup(SerializedProperty target)
     {
         FlagDatabase db = AssetDatabase.LoadAssetAtPath<FlagDatabase>("Assets/Data/Databases/FlagDatabase.asset");
         if (db == null){return;}
         List<Flag> allFlags = db.allFlags;
 
-        var menu = new GenericMenu();
-
-        foreach (Flag f in allFlags)
+        FlagSearchPopup.ShowPopup(db.allFlags, selectedFlag =>
         {
-            menu.AddItem(
-            new GUIContent($"{f.flagName} ({f.value})"),
-            false,
-            () =>
-            {
-                target.stringValue = f.flagName;
-                target.serializedObject.ApplyModifiedProperties();
-            });
-        }
-
-        menu.ShowAsContext();
+            target.stringValue = selectedFlag;
+            target.serializedObject.ApplyModifiedProperties();
+        });
     }
 
     private void DrawChoicesField(ref float yPos, Rect position, SerializedProperty prop)
@@ -174,5 +167,7 @@ public class SentenceDrawer : PropertyDrawer
         }
         return totalHeight;
     }  
+
+    
     #endregion
 }
