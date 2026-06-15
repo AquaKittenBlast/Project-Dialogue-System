@@ -9,6 +9,7 @@ using log4net.Appender;
 
 public class SentenceDrawer : PropertyDrawer
 {
+    private static Dictionary<string, bool> foldoutStates = new Dictionary<string, bool>();
     #region Draws the entire sentence
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -42,6 +43,24 @@ public class SentenceDrawer : PropertyDrawer
         }
         DrawField(ref yPos, position, onScreenPosition);
         DrawField(ref yPos, position, sentenceText);
+
+    string foldoutKey = property.propertyPath;
+
+    if (!foldoutStates.ContainsKey(foldoutKey))
+    {
+        foldoutStates[foldoutKey] = false;
+    }
+
+    foldoutStates[foldoutKey] = EditorGUI.Foldout(
+        new Rect(position.x, yPos, position.width, EditorGUIUtility.singleLineHeight),
+        foldoutStates[foldoutKey],
+        "Advanced Settings",
+        true
+    );
+
+    yPos += EditorGUIUtility.singleLineHeight + 4;
+
+    if (foldoutStates[foldoutKey]){
         DrawField(ref yPos, position, lineJumpId);
         DrawFlagField(ref yPos, position, shouldShowSentence, "Should Show Sentence If");
         DrawField(ref yPos, position, flagLineJumpId);
@@ -51,10 +70,11 @@ public class SentenceDrawer : PropertyDrawer
         DrawField(ref yPos, position, soundEffect);
         DrawField(ref yPos, position, endsDialogue);
         DrawField(ref yPos, position, isChoice);
-        if (isChoice.boolValue)
-        {
+
+        if (isChoice.boolValue){
             DrawChoicesField(ref yPos, position, choices);
         }
+    }
 
         EditorGUI.EndProperty();
     }
@@ -145,28 +165,41 @@ public class SentenceDrawer : PropertyDrawer
         yPos += lineHeight + 4; 
     }
 
-    //Ypos tells it where it goes, but the lineHeight variable gets used to tell the code how much space it should reserve for it
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label){
         float lineHeight = EditorGUIUtility.singleLineHeight;
         float spacing = 4f;
         float totalHeight = 0f;
 
-        totalHeight += (lineHeight + spacing) * 5; 
+        totalHeight += (lineHeight + spacing) * 5;
         totalHeight += (lineHeight * 4.5f) + spacing;
-        totalHeight += (lineHeight + spacing) * 9;
 
-        var isChoice = property.FindPropertyRelative("isChoice");
-        if (isChoice.boolValue){
-            var choices = property.FindPropertyRelative("choices");
-            totalHeight += lineHeight * 4;
-            float specificSpacing = 36f;
-            for (int i = 0; i < choices.arraySize; i++)
+        string foldoutKey = property.propertyPath;
+        bool expanded = foldoutStates.ContainsKey(foldoutKey) && foldoutStates[foldoutKey];
+
+        totalHeight += lineHeight + spacing;
+
+        if (expanded)
+        {
+            totalHeight += (lineHeight + spacing) * 9;
+
+            var isChoice = property.FindPropertyRelative("isChoice");
+
+            if (isChoice.boolValue)
             {
-                totalHeight += EditorGUIUtility.singleLineHeight + specificSpacing;
+                var choices = property.FindPropertyRelative("choices");
+
+                totalHeight += lineHeight * 4;
+
+                float specificSpacing = 36f;
+
+                for (int i = 0; i < choices.arraySize; i++)
+                {
+                    totalHeight += EditorGUIUtility.singleLineHeight + specificSpacing;
+                }
             }
         }
         return totalHeight;
-    }  
+    }
 
     
     #endregion
