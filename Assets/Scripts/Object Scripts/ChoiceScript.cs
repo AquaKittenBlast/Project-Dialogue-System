@@ -22,6 +22,6 @@ public class ChoiceScript : MonoBehaviour
     {
         ChoiceManagerScript.instance.PolPot();
         Debug.Log("Will jump to " + lineJumpId);
-        DialogueManagerScript.instance.SkipToLine(lineJumpId);
+        DialogueManagerScript.instance.SkipToLineForChoice(lineJumpId);
     }
 }

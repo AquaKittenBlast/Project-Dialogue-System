@@ -16,6 +16,6 @@ MonoBehaviour:
   - flagName: hasMetBinah
     value: 1
   - flagName: hasMetChesed
-    value: 1
+    value: 0
   - flagName: timesWateredPlant
     value: 3

@@ -19,9 +19,13 @@ MonoBehaviour:
     speakerName: 
     expression: neutral
     onScreenPosition: 0
-    sentenceText: hey
+    sentenceText: 'yagami
+
+'
     lineJumpId: 
     shouldShowSentence: None
+    flagLineJumpId: 
+    setsThisFlagToTrue: hasMetChesed
     backgroundImage: {fileID: 0}
     backgroundMusic: {fileID: 0}
     soundEffect: {fileID: 0}
@@ -36,20 +40,8 @@ MonoBehaviour:
     sentenceText: it fucking works
     lineJumpId: 
     shouldShowSentence: hasMetChesed
-    backgroundImage: {fileID: 0}
-    backgroundMusic: {fileID: 0}
-    soundEffect: {fileID: 0}
-    endsDialogue: 0
-    isChoice: 0
-    choices: []
-  - sentenceId: 
-    character: {fileID: 11400000, guid: cad473b817a4b284a8684605fde9715d, type: 2}
-    speakerName: 
-    expression: neutral
-    onScreenPosition: 0
-    sentenceText: whats up
-    lineJumpId: 
-    shouldShowSentence: None
+    flagLineJumpId: 
+    setsThisFlagToTrue: None
     backgroundImage: {fileID: 0}
     backgroundMusic: {fileID: 0}
     soundEffect: {fileID: 0}

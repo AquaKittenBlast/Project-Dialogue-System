@@ -47,8 +47,7 @@ public class DialogueManagerScript : MonoBehaviour
         StartDialogue(allDialogues[0]);
     }
 
-    public void OnClickedMouseLeftButtonAsInTheThingOnTheLeftOfTheMouse()
-    {
+    public void OnClickedMouseLeftButtonAsInTheThingOnTheLeftOfTheMouse(){
         if (!isChoosing){
             if (isTyping == true){
                 StopCoroutine(typeTextCoroutine);
@@ -75,7 +74,6 @@ public class DialogueManagerScript : MonoBehaviour
         ShowLine();
     }
 
-
     void ShowLine()
     {
         //Gets the right sentence from the dialogue
@@ -101,6 +99,7 @@ public class DialogueManagerScript : MonoBehaviour
         }
         characterManager.MoveImage(dialogueSentence.onScreenPosition, fadeIn);
         string historySpeakerName;
+        //History logic
         if (dialogueSentence.speakerName != ""){historySpeakerName = dialogueSentence.speakerName;}
         else if (dialogueSentence.character){historySpeakerName = dialogueSentence.character.characterName;}
         else {historySpeakerName = lastCharacter.name;}
@@ -117,7 +116,15 @@ public class DialogueManagerScript : MonoBehaviour
             }
             choiceManager.InstantiateChoices(dialogueSentence.choices);
         }
-        
+        //Flag setting logic
+        if (dialogueSentence.setsThisFlagToTrue != "None")
+        {
+            Flag foundFlag = allFlags.allFlags.Find(s => s.flagName == dialogueSentence.setsThisFlagToTrue);
+            if (foundFlag != null){foundFlag.value++;} else {Debug.Log($"There is no flag with the name {dialogueSentence.setsThisFlagToTrue}");}
+            
+            Debug.Log(foundFlag.value);
+        }
+
         //Background & audio
         if (dialogueSentence.backgroundImage) {bgManager.ChangeBackground(dialogueSentence.backgroundImage);}
         if (dialogueSentence.backgroundMusic) {audioManager.ChangeMusic(dialogueSentence.backgroundMusic);}
@@ -137,17 +144,22 @@ public class DialogueManagerScript : MonoBehaviour
 
     void NextSentence()
     {
+        //basic nullguard & dialogue ender
         if (currentDialogue == null){Debug.Log("No dialogue selected/provided."); return;}
-
         if (dialogueSentence.endsDialogue){EndDialogue(); return;}
+        //Linejump Id logic
         else if (dialogueSentence.lineJumpId != ""){
-            dialogueSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == dialogueSentence.lineJumpId);
+            int foundSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == dialogueSentence.lineJumpId);
+            if (foundSentenceIndex == -1)
+            {
+                Debug.Log($"No sentence found with id {dialogueSentence.lineJumpId}");
+            }
+            else {dialogueSentenceIndex = foundSentenceIndex;}
         }
         else{dialogueSentenceIndex++;}
-
+        //Checks if the current sentence is allowed to be displayed due to flags
         bool invalidSentence = true;
-
-        while (invalidSentence)
+        do
         {
             if (dialogueSentenceIndex >= currentDialogue.sentences.Count)
             {
@@ -160,13 +172,26 @@ public class DialogueManagerScript : MonoBehaviour
             {
                 invalidSentence = false;
             }
-            else{dialogueSentenceIndex++;}    
+            else {
+                if (currentSentence.flagLineJumpId != "")
+                {
+                    int foundSentenceIndex = currentDialogue.sentences.FindIndex(s => s.sentenceId == currentSentence.flagLineJumpId);
+                    if (foundSentenceIndex == -1)
+                    {
+                        Debug.Log($"No sentence found with id {currentSentence.flagLineJumpId}");
+                    }
+                    else {dialogueSentenceIndex = foundSentenceIndex;}
+                    
+                }
+                else{dialogueSentenceIndex++;}
+            }    
         }
-
+        while (invalidSentence);
         ShowLine();
     }
 
-    public void SkipToLine(string idToJumpTo)
+    #region Helper functions
+    public void SkipToLineForChoice(string idToJumpTo)
     {
         textBox.text = "";
         nameBox.text = "";
@@ -210,5 +235,6 @@ public class DialogueManagerScript : MonoBehaviour
         }
         return false;
     }
+    #endregion
 
 }

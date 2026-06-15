@@ -24,8 +24,8 @@ public class SentenceDrawer : PropertyDrawer
         var sentenceText = property.FindPropertyRelative("sentenceText");
         var lineJumpId = property.FindPropertyRelative("lineJumpId");
         var shouldShowSentence = property.FindPropertyRelative("shouldShowSentence");
-        //flaglinejump here
-        //flaglineset here
+        var flagLineJumpId = property.FindPropertyRelative("flagLineJumpId");
+        var setsThisFlagToTrue = property.FindPropertyRelative("setsThisFlagToTrue");//flaglineset here
         var backgroundImage = property.FindPropertyRelative("backgroundImage");
         var backgroundMusic = property.FindPropertyRelative("backgroundMusic");
         var soundEffect = property.FindPropertyRelative("soundEffect");
@@ -43,9 +43,9 @@ public class SentenceDrawer : PropertyDrawer
         DrawField(ref yPos, position, onScreenPosition);
         DrawField(ref yPos, position, sentenceText);
         DrawField(ref yPos, position, lineJumpId);
-        DrawFlagField(ref yPos, position, shouldShowSentence);
-        //flaglinejump here
-        //flaglineset here
+        DrawFlagField(ref yPos, position, shouldShowSentence, "Should Show Sentence If");
+        DrawField(ref yPos, position, flagLineJumpId);
+        DrawFlagField(ref yPos, position, setsThisFlagToTrue, "Sets This Flag To True");
         DrawField(ref yPos, position, backgroundImage);
         DrawField(ref yPos, position, backgroundMusic);
         DrawField(ref yPos, position, soundEffect);
@@ -109,12 +109,12 @@ public class SentenceDrawer : PropertyDrawer
         yPos += EditorGUIUtility.singleLineHeight + 4;
     }
 
-    private void DrawFlagField(ref float yPos, Rect position, SerializedProperty shouldShowSentence)
+    private void DrawFlagField(ref float yPos, Rect position, SerializedProperty shouldShowSentence, string labelName)
     {
         //sets the necessary variables for this script
         string currentValue = string.IsNullOrEmpty(shouldShowSentence.stringValue) ? "None" : shouldShowSentence.stringValue;
         Rect wholeRect = new Rect(position.x, yPos, position.width, EditorGUIUtility.singleLineHeight);
-        Rect fieldRect = EditorGUI.PrefixLabel(wholeRect, new GUIContent("Should Show Sentence If"));
+        Rect fieldRect = EditorGUI.PrefixLabel(wholeRect, new GUIContent(labelName));
 
         //if you use a button in a script like this it returns trur if it has been clicked, and executes the code insidre
         if (EditorGUI.DropdownButton(fieldRect, new GUIContent(currentValue),FocusType.Passive)){ OpenFlagSearchPopup(shouldShowSentence); }
@@ -153,7 +153,7 @@ public class SentenceDrawer : PropertyDrawer
 
         totalHeight += (lineHeight + spacing) * 5; 
         totalHeight += (lineHeight * 4.5f) + spacing;
-        totalHeight += (lineHeight + spacing) * 7;
+        totalHeight += (lineHeight + spacing) * 9;
 
         var isChoice = property.FindPropertyRelative("isChoice");
         if (isChoice.boolValue){

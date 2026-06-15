@@ -14,8 +14,8 @@ public class Sentence
     //Advanced Information
     public string lineJumpId;
     public string shouldShowSentence = "None";
-    //flaglinejumphere
-    //flaglineset here
+    public string flagLineJumpId;
+    public string setsThisFlagToTrue = "None";
     public Sprite backgroundImage;
     public AudioClip backgroundMusic;
     public AudioClip soundEffect;
